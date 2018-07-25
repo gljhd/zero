@@ -17,12 +17,19 @@ def train_net(net,
     dir_checkpoint = 'checkpoints/'
 
     train_pipe = data.data_load(dir_img,dir_mask)
-    imgs, labels = train_pipe.data_gene()
+
     optimizer = optim.SGD(net.parameters(), lr=lr, momentum=0.9, weight_decay = 0.0005)
 
     for epoch in range(epochs):
         print('starting epoch {}/{}.'.format(epoch+1, epochs))
-
+        imgs_labels = train_pipe.data_gene()
+        epoch_loss = 0
+        for imgs,labels in imgs_labels:
+            imgs = torch.from_numpy(imgs)
+            true_masks = torch.from_numpy(true_masks)
+            mask_pred = net(imgs)
+            loss = loss_cal(true_masks, true_masks)
+            epoch_loss += loss.item()
 
 
 
