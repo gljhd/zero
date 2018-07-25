@@ -7,10 +7,10 @@ def seg2label(dir):
     img = cv2.imread(dir)
     w = img.shape[0]
     h = img.shape[1]
-    labels = np.zeros((w, h), dtype=np.int32)
+    img = cv2.resize(img,(neww,newh),interpolation = cv2.INTER_NEAREST)
+    labels = np.zeros((neww, newh), dtype=np.int32)
     for i in range(20):
         labels += ((img[:,:,2] == cfg.palette[i][0]) * (img[:,:,1] == cfg.palette[i][1]) * (img[:,:,0] == cfg.palette[i][2]))*(i+1)
-    one_hot = np.zeros((w,h,21))
     '''
     for i in range(w):
         for j in range(h):
