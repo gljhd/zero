@@ -12,8 +12,18 @@ def test(a):
                 yield b
                 b = []
                 n = 0
-
+class inconv(nn.Module):
+    def __int__(self, in_ch, out_ch):
+        super(inconv, self).__int__()
+        self.conv = double_conv(in_ch, out_ch)
+    def forward(self, x):
+        x = self.conv(x)
+        return x
 if __name__ == '__main__':
-    a = [1, 2, 3, 4, 5, 6, 7]
-    for i in test(a):
-        print(i)
+    file = '/media/wingspan/ssd512/Glj_train/VOCtrainval_2012/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt'
+    a = []
+    with open(file) as f:
+        for i in f.readlines():
+            a.append(i)
+    print(len(a))
+    print(a[0])
